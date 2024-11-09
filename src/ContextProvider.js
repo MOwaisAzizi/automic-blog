@@ -1,14 +1,12 @@
 import { createContext,useContext,useState } from "react";
+import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
-    // return {
-    //   title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-    //   body: faker.hacker.phrase(),
-    // };
     return {
-      title: ` this is a post`,
-      body: 'body Posting..............',
+      title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+      body: faker.hacker.phrase(),
     };
+
   }
 
 // 1-crate a Context
@@ -16,12 +14,12 @@ const PostContext = createContext()
 
 function PostProvider({children}){
     const [posts, setPosts] = useState(() =>
-    Array.from({ length: 30 }, () => createRandomPost())
+    Array.from({ length: 20 }, () => createRandomPost())
   );
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Derived state. These are the posts that will actually be displayed
+  // Derived state.These are the posts that will actually be displayed
   const searchedPosts =
     searchQuery.length > 0
       ? posts.filter((post) =>
@@ -39,18 +37,17 @@ function PostProvider({children}){
     setPosts([]);
   }
 
+  const value = {
+    posts:searchedPosts,
+    onAddPost:handleAddPost,
+    onClearPosts:handleClearPosts,
+    searchQuery,
+    setSearchQuery,
+  }
 
   return (
   <PostContext.Provider 
-  value = {
-    {
-      posts:searchedPosts,
-      onAddPost:handleAddPost,
-      onClearPosts:handleClearPosts,
-      searchQuery,
-      setSearchQuery,
-    }
-  }
+  value = { value }
     >
         {children}</PostContext.Provider>
     )
