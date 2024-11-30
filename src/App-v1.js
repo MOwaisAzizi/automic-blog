@@ -6,7 +6,6 @@ function createRandomPost() {
     title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
     body: faker.hacker.phrase(),
   };
-
 }
 
 function App() {
@@ -136,7 +135,7 @@ function FormAddPost({ onAddPost }) {
       <textarea
         value={body}
         onChange={(e) => setBody(e.target.value)}
-        placeholder="Post body"/>
+        placeholder="Post body" />
       <button>Add post</button>
     </form>
   );

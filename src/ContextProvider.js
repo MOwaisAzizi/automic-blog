@@ -1,19 +1,18 @@
-import { createContext,useContext,useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
-    return {
-      title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-      body: faker.hacker.phrase(),
-    };
-
-  }
+  return {
+    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+    body: faker.hacker.phrase(),
+  };
+}
 
 // 1-crate a Context
 const PostContext = createContext()
 
-function PostProvider({children}){
-    const [posts, setPosts] = useState(() =>
+function PostProvider({ children }) {
+  const [posts, setPosts] = useState(() =>
     Array.from({ length: 20 }, () => createRandomPost())
   );
 
@@ -38,25 +37,26 @@ function PostProvider({children}){
   }
 
   const value = {
-    posts:searchedPosts,
-    onAddPost:handleAddPost,
-    onClearPosts:handleClearPosts,
+    posts: searchedPosts,
+    onAddPost: handleAddPost,
+    onClearPosts: handleClearPosts,
     searchQuery,
     setSearchQuery,
+    createRandomPost,
   }
 
   return (
-  <PostContext.Provider 
-  value = { value }
+    <PostContext.Provider
+      value={value}
     >
-        {children}</PostContext.Provider>
-    )
+      {children}</PostContext.Provider>
+  )
 }
 
-function usePosts(){
-    const context = useContext(PostContext)
-    if(context==undefined) throw new Error('You can not use PostProvider outside the  context.Provider')
-    return context
-    }
+function usePosts() {
+  const context = useContext(PostContext)
+  if (context == undefined) throw new Error('You can not use PostProvider outside the  context.Provider')
+  return context
+}
 
-export {PostProvider,usePosts}
+export { PostProvider, usePosts }
