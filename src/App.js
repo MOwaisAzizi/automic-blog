@@ -139,7 +139,7 @@ function Archive() {
   //  So we use this trick as an optimization technique, because if we just used a regular variable, these posts would be re-created on every render.
   //  We could also move the posts outside the components, but I wanted to show you this trick 😉
 
-  const { onAddPost } = usePosts()
+  const { onAddPost,createRandomPost } = usePosts()
 
   const [posts] = useState(() =>
     // 💥 WARNING: This might make your computer slow! Try a smaller `length` first
